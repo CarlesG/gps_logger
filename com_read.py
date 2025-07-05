@@ -1,6 +1,11 @@
+# SCRIPT TO READ THE GPS DATA FROM COM
+#
+# TODO: save log in a file 
+
 import serial
 import time
 import serial.tools.list_ports as port_list
+import sys
 
 # Search the com of gps device
 ports = list(port_list.comports())
@@ -21,12 +26,20 @@ print("\n................\n")
 # Configuration of the port
 ser = serial.Serial(port=com, baudrate = 4800, bytesize = 8, timeout = 2, stopbits=serial.STOPBITS_ONE)
 serialString =""
+file_out_name = 'log.txt'
 # Print serial port on the terminal
 while 1:
     try:
+            
         serialString = ser.readline()
         print(serialString.decode("Ascii"))
-    except:
+        with open(file_out_name, "a") as file:
+            file.writelines(seria,serialString.decode("Ascii"))
+    except KeyboardInterrupt:
+        
+        print("Keyboard Interruption caught. Exiting program----")
+        sys.exit(0)
+    except: 
         pass
 
 
