@@ -30,16 +30,13 @@ file_out_name = 'log.txt'
 # Print serial port on the terminal
 while 1:
     try:
-            
         serialString = ser.readline()
         print(serialString.decode("Ascii"))
-        with open(file_out_name, "a") as file:
-            file.writelines(seria,serialString.decode("Ascii"))
+        with open(file_out_name, "a+") as file:
+            file.writelines(serialString.decode("Ascii"))
     except KeyboardInterrupt:
-        
+        ser.close() 
         print("Keyboard Interruption caught. Exiting program----")
         sys.exit(0)
     except: 
         pass
-
-
