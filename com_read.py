@@ -28,12 +28,13 @@ ser = serial.Serial(port=com, baudrate = 4800, bytesize = 8, timeout = 2, stopbi
 serialString =""
 file_out_name = 'log.txt'
 # Print serial port on the terminal
+serialString = ser.readline()
 while 1:
     try:
         serialString = ser.readline()
-        print(serialString.decode("Ascii"))
+        print(serialString.decode("Ascii").replace("\n", ""))
         with open(file_out_name, "a+") as file:
-            file.writelines(serialString.decode("Ascii"))
+            file.writelines(serialString.decode("Ascii").replace("\n", ""))
     except KeyboardInterrupt:
         ser.close() 
         print("Keyboard Interruption caught. Exiting program----")
